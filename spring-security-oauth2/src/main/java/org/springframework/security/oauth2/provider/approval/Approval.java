@@ -62,10 +62,10 @@ public class Approval {
 	}
 
 	public Approval(String userId, String clientId, String scope, Date expiresAt, ApprovalStatus status, Date lastUpdatedAt) {
-		setUserId(userId);
-		setClientId(clientId);
-		setScope(scope);
-		setExpiresAt(expiresAt);
+		this.userId = userId;
+		this.clientId = clientId;
+		this.scope = scope;
+		this.expiresAt = expiresAt;
 		this.status = status;
 		this.lastUpdatedAt = lastUpdatedAt;
 	}

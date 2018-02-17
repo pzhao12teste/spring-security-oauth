@@ -12,6 +12,18 @@
  */
 package org.springframework.security.oauth2.config.annotation;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import javax.sql.DataSource;
+
 import org.junit.After;
 import org.junit.Rule;
 import org.junit.Test;
@@ -28,7 +40,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.mock.web.MockServletContext;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.servlet.configuration.EnableWebMvcSecurity;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;
@@ -65,14 +76,6 @@ import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import javax.sql.DataSource;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import static org.junit.Assert.*;
-
 /**
  * @author Dave Syer
  * 
@@ -106,8 +109,7 @@ public class AuthorizationServerConfigurationTests {
 				new Object[] { null, new Class<?>[] { AuthorizationServerAllowsSpecificRequestMethods.class } },
 				new Object[] { null, new Class<?>[] { AuthorizationServerAllowsOnlyPost.class } },
 				new Object[] { BeanCreationException.class, new Class<?>[] { AuthorizationServerTypes.class } },
-				new Object[] { null, new Class<?>[] { AuthorizationServerCustomGranter.class } },
-				new Object[] { null, new Class<?>[] { AuthorizationServerSslEnabled.class } }
+				new Object[] { null, new Class<?>[] { AuthorizationServerCustomGranter.class } }
 		// @formatter:on
 		);
 	}
@@ -676,14 +678,4 @@ public class AuthorizationServerConfigurationTests {
 
 	}
 
-	// gh-638
-	@EnableWebSecurity
-	@EnableAuthorizationServer
-	protected static class AuthorizationServerSslEnabled extends AuthorizationServerConfigurerAdapter {
-
-		@Override
-		public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
-			security.sslOnly();
-		}
-	}
 }
